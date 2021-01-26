@@ -1,4 +1,4 @@
-const roteador = require('express').Router()
+const roteador = require('express').Router({ mergeParams: true })
 const TabelaFornecedor = require('./TabelaFornecedor')
 const Fornecedor = require('./Fornecedor')
 const SerializadorFornecedor = require("../../Serializador").SerializadorFornecedor
@@ -70,5 +70,11 @@ roteador.delete('/:idFornecedor', async(requisicao, resposta, proximo) => {
         proximo(erro)
     }
 })
+
+const roteadorProdutos = require("./produtos/index")
+
+
+
+roteador.use("/:idFornecedor/produtos", roteadorProdutos)
 
 module.exports = roteador
